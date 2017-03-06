@@ -1,0 +1,29 @@
+{
+  "name": "create-user",
+  "version": "1.0.0",
+  "description": "Creates a user",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tape": "./node_modules/tape/bin/tape 'test/tape/**/*.js' | tap-spec",
+    "jasmine": "jasmine test/jasmine/**/*.js",
+    "jasmine-init": "jasmine",
+    "mocha": "mocha test/mocha/**/*.js"
+  },
+  "author": "David Harting",
+  "license": "ISC",
+  "devDependencies": {
+    "bunyan": "^1.8.6",
+    "chai": "^3.5.0",
+    "jasmine": "^2.5.3",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3",
+    "testdouble": "^1.11.2"
+  },
+  "dependencies": {
+    "bunyan-loggly": "^1.2.0",
+    "lodash": "^4.17.4"
+  }
+}
