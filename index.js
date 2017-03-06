@@ -4,8 +4,8 @@ console.log('Loading function');
 
 const ResponseService = require('./services/response')
 const UserService = require('./services/user')
-const log = require('./logger/bunyan').createLogger('Create User')
-// const log = require('./logger/winston')('Create User')
+const bunyan = require('./logger/bunyan').createLogger('Create User')
+const winston = require('./logger/winston').logger
 
 /**
  * Demonstrates a simple HTTP endpoint using API Gateway. You have full
@@ -14,8 +14,13 @@ const log = require('./logger/bunyan').createLogger('Create User')
  */
 exports.handler = (event, context, callback) => {
   try {
-    log.info({ event }, 'Received event');
-    log.info({ context }, 'Received context');
+    // In Bunyan, you can lead with an object which will be added to your JSON log entry property-by-property
+    // Then, your message will be added to your log on the `msg` property
+    // bunyan.info({ event }, 'Received event');
+    // With winston, you can log "metadata objects" after your message
+    winston.info('Received event', event)
+    // bunyan.info({ context }, 'Received context');
+    winston.info('Received context', context)
 
     switch (event.httpMethod) {
       case "POST": {
@@ -23,7 +28,8 @@ exports.handler = (event, context, callback) => {
         try {
           user = JSON.parse(event.body)
         } catch (error) {
-          log.error(error, 'Unable to parse request body')
+          // bunyan.error(error, 'Unable to parse request body')
+          winston.error('Unable to parse request body', error)
           return callback(null, ResponseService.composeError(400, 'Unable to parse request body'))
         }
 
@@ -50,7 +56,8 @@ exports.handler = (event, context, callback) => {
       }
     }
   } catch (error) {
-    log.error(error, 'Unplanned exception resulting in Internal Server Error')
+    // bunyan.error(error, 'Unplanned exception resulting in Internal Server Error')
+    winston.error('Unplanned exception resulting in Internal Server Error', error)
     return callback(null, ResponseService.composeError(500, error.message))
   }
 };
