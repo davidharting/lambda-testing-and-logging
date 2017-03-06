@@ -119,8 +119,13 @@ describe('Create user lambda function', function(done) {
       const response = handler(createEvent('POST', noContact), {}, callback)
       expect(response.statusCode, 'status should be 400 Bad Request').to.equal(400)
 
-      const errorMessage = JSON.parse(response.body).message
-      expect(erroMessage, 'The error message should explain the problem with the contact details')
+      const responseBody = JSON.parse(response.body)
+      expect(responseBody).to.exist
+
+      const errorMessage = responseBody.message
+      expect(errorMessage, 'The response should contain a property message explaining the problem').to.exist
+
+      expect(errorMessage, 'The error message should explain the problem with the contact details')
         .to.contain('email')
         .and.to.contain('phone')
     })
