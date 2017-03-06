@@ -4,8 +4,8 @@ console.log('Loading function');
 
 const ResponseService = require('./services/response')
 const UserService = require('./services/user')
-const bunyan = require('./logger/bunyan').createLogger('Create User')
-const winston = require('./logger/winston').logger
+const bunyan = require('./logger/bunyan').createLogger('create-user')
+const winston = require('./logger/winston').createLogger('create-user')
 
 /**
  * Demonstrates a simple HTTP endpoint using API Gateway. You have full
