@@ -3,7 +3,6 @@ const _ = require('lodash')
 exports.validate = function(user) {
     const issues = []
     if (!user.email && !user.phone) {
-        isValid = false
         issues.push('A user must have a phone number and/or email address')
     }
     return { 
